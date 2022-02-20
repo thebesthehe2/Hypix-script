@@ -5,6 +5,16 @@ end
 --end 
 
 
+--Notification---
+function SendNotification(Title, Text, Duration)
+    game.StarterGui:SetCore("SendNotification",{
+        Title = Title,
+        Text = Text,
+        Duration = Duration
+ 
+     })
+end
+--end--
 
 
 
@@ -109,16 +119,6 @@ local carSpawn = CFrame.new(74.9, 3.3999, -72.7)
 
 
 --Main (section)
-section:Create(
-    "Button",
-    "Location",
-    function()
-        print(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
-    end,
-    {
-        animated = true,
-    }
-)
 
 section:Create(
     "Slider",
@@ -172,6 +172,7 @@ sectionv2:Create(
     "Button",
     "Get fire extinguisher",
     function()
+        SendNotification("Hypix-Scripting", "Got fire extingisher", 3)
         workspace.Extinguisher.Extinguisher.ClickDetector.Detector:FireServer()
     end,
     {
@@ -195,13 +196,15 @@ section:Create(
     "No Clip",
     function(state)
         game:GetService("RunService").Stepped:Connect(function()
-            if nclip == true then
+            if state == true then
+                SendNotification("Hypix-Scripting", "No clip = On", 3)
                 game.Players.LocalPlayer.Character.Head.CanCollide = false
                 game.Players.LocalPlayer.Character.Torso.CanCollide = false
             end
   
         end)
             if state == false then
+                SendNotification("Hypix-Scripting", "No clip = Off", 3)
                 game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
             end
     end,
@@ -209,34 +212,6 @@ section:Create(
         default = false,
     }
 )
-
-section:Create(
-    "Button",
-    "Delete the annoying music",
-    function()
-        game:GetService("SoundService"):Destroy()
-    end,
-    {
-        animated = true,
-    }
-)
-
-
-
-
---Auto farm (section 1)
-section1:Create(
-    "Button",
-    "Auto Farm (not mine and bannable)",
-    function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/cEwtwKZR",true))()
-    end,
-    {
-        animated = true,
-    }
-)
---end
-
 
 
 
@@ -303,25 +278,5 @@ section2:Create(
 )
 --end
 
---send notification things
-local funcs = {}
-function SendNotification(Title, Text, Duration)
-    game.StarterGui:SetCore("SendNotification",{
-        Title = Title,
-        Text = Text,
-        Duration = Duration
- 
-     })
-end
 
 
-funcs.plrJoin = game.Players.PlayerAdded:Connect(function(joinPlr)
-        SendNotification("Hypix", tostring(joinPlr).. "has just joined the game", 5)
-end)
-
-
-
-funcs.plrLeave = game.Players.PlayerRemoving:Connect(function(leavePlr)
-        SendNotification("Hypix", tostring(leavePlr).. "has just left the game", 5)
-end)
---end
