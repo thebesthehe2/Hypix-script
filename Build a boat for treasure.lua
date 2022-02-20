@@ -4,7 +4,16 @@ if game.CoreGui:FindFirstChild("UILib") then
 end
 --end 
 
-
+--notification
+function SendNotification(Title, Text, Duration)
+    game.StarterGui:SetCore("SendNotification",{
+        Title = Title,
+        Text = Text,
+        Duration = Duration
+ 
+     })
+end
+--end
 
 
 --Lbary things
@@ -87,17 +96,6 @@ creds:Create(
 
 --MAIN
 
-MAIN:Create(
-    "Button",
-    "Location",
-    function()
-        print(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
-    end,
-    {
-        animated = true,
-    }
-)
-
 
 MAIN:Create(
     "Slider",
@@ -149,7 +147,7 @@ MAIN:Create(
 
 MAIN:Create(
     "Toggle",
-    "Noclip (created by lil scorpion#7563)",
+    "Noclip",
     function(state)
         local noclip = state -- Gets if you want the noclip
         char = game.Players.LocalPlayer.Character -- Gets your player
@@ -181,17 +179,6 @@ MAIN:Create(
 )
 
 
-MAIN:Create(
-    "Button",
-    "No damage in water",
-    function()
-        game.Players.LocalPlayer.Character.WaterDetector:Destroy()
-    end,
-    {
-        animated = true,
-    }
-)
-
 --end
 
 
@@ -203,6 +190,7 @@ autofarm:Create(
     "Auto Farm (made by me/ may be a bit buggy)",
     function(state)
         if state == true then
+            SendNotification("Hypix-Scripting", "Starting auto farm", 5)
             wait(0.5)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = stage1
             wait(0.5)
@@ -234,6 +222,7 @@ autofarm:Create(
             wait(20)
         end
         if state == false then
+            SendNotification("Hypix-Scripting", "Stopped auto farm", 3)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = spawn
         end
     end,
@@ -251,24 +240,5 @@ end
 --end
 
 --send notification things
-local funcs = {}
-function SendNotification(Title, Text, Duration)
-    game.StarterGui:SetCore("SendNotification",{
-        Title = Title,
-        Text = Text,
-        Duration = Duration
- 
-     })
-end
 
 
-funcs.plrJoin = game.Players.PlayerAdded:Connect(function(joinPlr)
-        SendNotification("Hypix", tostring(joinPlr).. "has just joined the game", 5)
-end)
-
-
-
-funcs.plrLeave = game.Players.PlayerRemoving:Connect(function(leavePlr)
-        SendNotification("Hypix", tostring(leavePlr).. "has just left the game", 5)
-    end)
---end
