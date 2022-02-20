@@ -56,17 +56,6 @@ function SendNotification(Title, Text, Duration)
      })
 end
 
-plrJoin = game.Players.PlayerAdded:Connect(function(joinPlr)
-    SendNotification("Hypix", tostring(joinPlr).. "has just joined the game", 5)
-end)
-
-
-
-plrLeave = game.Players.PlayerRemoving:Connect(function(leavePlr)
-    SendNotification("Hypix", tostring(leavePlr).. "has just left the game", 5)
-end)
-
-SendNotification("Hypix", "Welcome to Hypix script" , 5)
 --end
 
 --tables
@@ -201,6 +190,7 @@ sectionMain:Create(
     "No clip",
     function(state)
         if state == true then
+            SendNotification("Hypix-Scripting", "No Clip = On", 3)
             var.clipping = game:GetService("RunService").Stepped:Connect(function()
                 if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torso") and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") then
                     game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torso").CanCollide = not state
@@ -208,6 +198,7 @@ sectionMain:Create(
                 end 
             end)
         else
+            SendNotification("Hypix-Scripting", "No Clip = Off", 3)
             var.clipping:Disconnect()
         end
     end,
@@ -224,11 +215,13 @@ sectionMain:Create(
     function(state)
         var.dayTime = not var.dayTime
         if var.dayTime then 
+            SendNotification("Hypix-Scripting", "Always day = On", 3)
             var.dayConnect = game.Lighting.Changed:Connect(function()
                 game.Lighting.TimeOfDay = "12:00:00"
                 game.Lighting.Brightness = 2
             end)
         else
+            SendNotification("Hypix-Scripting", "Always day = Off", 3)
             var.dayConnect:Disconnect()
         end
     end,
@@ -243,11 +236,13 @@ sectionMain:Create(
     function(state)
         var.nightTime = not var.nightTime
         if var.nightTime then 
+            SendNotification("Hypix-Scripting", "Always night = On", 3)
             var.nightConnect = game.Lighting.Changed:Connect(function()
                 game.Lighting.TimeOfDay = "0:00:00"
                 game.Lighting.Brightness = -2
             end)
         else
+            SendNotification("Hypix-Scripting", "Always night = Off", 3)
             var.nightConnect:Disconnect()
         end
     end,
@@ -262,10 +257,12 @@ sectionMain:Create(
     function(state)
         var.fogStatus = not var.fogStatus
         if var.fogStatus then
+            SendNotification("Hypix-Scripting", "Fog = On", 3)
             var.fogDisable = game.Lighting.Changed:Connect(function()
             game.Lighting.FogEnd = 10000
             end)
         else
+            SendNotification("Hypix-Scripting", "Fog = Off", 3)
             var.fogDisable:Disconnect()
         end
     end,
@@ -368,6 +365,7 @@ sectionTeleportToPlayer:Create(
     function(selected)
         selCharacter = selected
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[selCharacter].Character.HumanoidRootPart.CFrame
+        SendNotification("Hypix-Scripting", "Teleported", 3)
     end,
     {
         playerlist = true
@@ -377,6 +375,7 @@ sectionTeleportToPlayerBase:Create(
     "DropDown",
     "Teleport to players base ", 
     function(selected)
+        SendNotification("Hypix-Scripting", "Teleported", 3)
         local playerlastposition = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         selectedPlayer = selected
         local foundPlot = false
@@ -391,7 +390,7 @@ sectionTeleportToPlayerBase:Create(
     end
  
     if foundPlot == false then
-        SendNotification("Hypix", "This person does not have a plot loaded" , 5)
+        SendNotification("Hypix-Scripting", "This person does not have a plot loaded" , 5)
     end
     end,
     {
@@ -501,7 +500,7 @@ sectionBase:Create(
                 break
             end
         end
-        SendNotification("Hypix", "Your free land has arrived", 5)
+        SendNotification("Hypix-Scripting", "Your free land has arrived", 5)
     end,
     {
         animated = true,
@@ -550,7 +549,7 @@ sectionBase:Create(
         createBaseSpot(CFrame.new(bPos.X + 40, bPos.Y, bPos.Z - 80))
         createBaseSpot(CFrame.new(bPos.X - 40, bPos.Y, bPos.Z - 80))
         wait(2)
-        SendNotification("Hypix", "Your max land has arrived")
+        SendNotification("Hypix-Scripting", "Your max land has arrived")
     end,
     {
         animated = true,
@@ -562,10 +561,10 @@ sectionBase:Create(
     "Load Base",
     function()
         if isLoadAvail() == false then
-            SendNotification("Hypix", "You may not load it this time", 5)
+            SendNotification("Hypix-Scripting", "You may not load it this time", 5)
         else
             if game.Players.LocalPlayer.CurrentSaveSlot.Value == -1 then
-                SendNotification("Hypix", "You do not have a slot loaded", 5)
+                SendNotification("Hypix-Scripting", "You do not have a slot loaded", 5)
             else
                 game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(game.Players.LocalPlayer.CurrentSaveSlot.Value)
             end
@@ -581,12 +580,12 @@ sectionDuping:Create(
     "Money Dupe",
     function()
         if game.Players.LocalPlayer.CurrentSaveSlot.Value ~= -1 then
-            SendNotification("Hypix", "Use the load base in the script to reload")
+            SendNotification("Hypix-Scripting", "Use the load base in the script to reload", 5)
         game:GetService("ReplicatedStorage").Transactions.ClientToServer.Donate:InvokeServer(game.Players.LocalPlayer, game.Players.LocalPlayer.leaderstats.Money.Value, game.Players.LocalPlayer.CurrentSaveSlot.Value)
         wait(1)
-        SendNotification("Hypix", "Your Money is available, please save your slot", 5)
+        SendNotification("Hypix-Scripting", "Your Money is available, please save your slot", 5)
         else 
-            SendNotification("Hypix", "You do not have a slot loaded", 5)
+            SendNotification("Hypix-Scripting", "You do not have a slot loaded", 5)
         end
     end,
     {
@@ -608,7 +607,7 @@ sectionDuping:Create(
             end 
         end 
         if emptyBackpack == true then
-            SendNotification("Hypix", "You dont have any axes in ur backpack", 5)
+            SendNotification("Hypix-Scripting", "You dont have any axes in ur backpack", 5)
         else
             if game.Players.LocalPlayer.Character:FindFirstChild("Head") then
                 game.Players.LocalPlayer.Character.Head:Destroy()
