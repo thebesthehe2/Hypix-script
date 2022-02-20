@@ -27,6 +27,14 @@ local Guns = main:CreateCategory("Gun", "")
 
 local section2 = Guns:CreateSection("Gun's")
 
+function SendNotification(Title, Text, Duration)
+    game.StarterGui:SetCore("SendNotification",{
+        Title = Title,
+        Text = Text,
+        Duration = Duration
+ 
+     })
+end
 
 
 section:Create(
@@ -123,6 +131,7 @@ section1:Create(
     "No clip",
     function(state)
         if state == true then
+            SendNotification("Hypix-Scripting", "No clip = On", 3)
             var.clipping = game:GetService("RunService").Stepped:Connect(function()
                 if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torso") and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") then
                     game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torso").CanCollide = not state
@@ -130,6 +139,7 @@ section1:Create(
                 end 
             end)
         else
+            SendNotification("Hypix-Scripting", "No clip = Off", 3)
             var.clipping:Disconnect()
         end
     end,
@@ -355,7 +365,7 @@ section1:Create(
     }
 )
 
-section1:Create(
+--[[section1:Create(
     "Button",
     "Kill All (use at own risk)",
     function()
@@ -420,7 +430,7 @@ section1:Create(
     {
         animated = true,
     }
-)
+)]]--
 
 section1:Create(
     "Button",
@@ -495,6 +505,7 @@ section2:Create(
     "Button",
     "Give all guns + key card (only if one is dropped)",
     function()
+        SendNotification("Hypix-Scripting", "Gave all guns", 3)
         local args = {[1] = workspace.Prison_ITEMS.giver:FindFirstChild("M9").ITEMPICKUP}
         workspace.Remote.ItemHandler:InvokeServer(unpack(args))
         local args = {[1] = workspace.Prison_ITEMS.giver:FindFirstChild("Remington 870").ITEMPICKUP}
@@ -515,6 +526,7 @@ section2:Create(
     "Button",
     "Give M9",
     function()
+        SendNotification("Hypix-Scripting", "Gave M9", 3)
         local args = {[1] = workspace.Prison_ITEMS.giver:FindFirstChild("M9").ITEMPICKUP}
         workspace.Remote.ItemHandler:InvokeServer(unpack(args))
     end,
@@ -527,6 +539,7 @@ section2:Create(
     "Button",
     "Give Remington 870",
     function()
+        SendNotification("Hypix-Scripting", "Gave Remington", 3)
         local args = {[1] = workspace.Prison_ITEMS.giver:FindFirstChild("Remington 870").ITEMPICKUP}
         workspace.Remote.ItemHandler:InvokeServer(unpack(args))
     end,
@@ -539,6 +552,7 @@ section2:Create(
     "Button",
     "Give AK-47",
     function()
+        SendNotification("Hypix-Scripting", "Gave AK-47", 3)
         local args = {[1] = workspace.Prison_ITEMS.giver:FindFirstChild("AK-47").ITEMPICKUP}
         workspace.Remote.ItemHandler:InvokeServer(unpack(args))
     end,
@@ -551,6 +565,7 @@ section2:Create(
     "Button",
     "Give Key Card (only if dropped)",
     function()
+        SendNotification("Hypix-Scripting", "Gave Key Card", 3)
         local args = {
             [1] = workspace.Prison_ITEMS.single:FindFirstChild("Key card").ITEMPICKUP
         }
@@ -590,6 +605,7 @@ section1:Create(
     "Button",
     "Remove all doors",
     function()
+        SendNotification("Hypix-Scripting", "Removed all doors", 3)
                 Workspace.Prison_Cellblock.doors:Destroy()
                     
                 for i,v in pairs(workspace:GetChildren())do
@@ -1111,24 +1127,5 @@ section3:Create(
 )
 
 --send notification things
-local funcs = {}
-function SendNotification(Title, Text, Duration)
-    game.StarterGui:SetCore("SendNotification",{
-        Title = Title,
-        Text = Text,
-        Duration = Duration
- 
-     })
-end
 
 
-funcs.plrJoin = game.Players.PlayerAdded:Connect(function(joinPlr)
-        SendNotification("Hypix", tostring(joinPlr).. "has just joined the game", 5)
-end)
-
-
-
-funcs.plrLeave = game.Players.PlayerRemoving:Connect(function(leavePlr)
-        SendNotification("Hypix", tostring(leavePlr).. "has just left the game", 5)
-    end)
---end
