@@ -3,6 +3,17 @@ if game.CoreGui:FindFirstChild("UILib") then
     game.CoreGui["UILib"]:Destroy()
 end
     
+
+function SendNotification(Title, Text, Duration)
+    game.StarterGui:SetCore("SendNotification",{
+        Title = Title,
+        Text = Text,
+        Duration = Duration
+ 
+     })
+end
+
+
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/teppyboy/RbxScripts/master/Misc/UI_Libraries/Zypher/Library.lua"))()
 
 local main = library:CreateMain({
@@ -269,24 +280,4 @@ red:Create(
 )
 
 --send notification things
-local funcs = {}
-function SendNotification(Title, Text, Duration)
-    game.StarterGui:SetCore("SendNotification",{
-        Title = Title,
-        Text = Text,
-        Duration = Duration
- 
-     })
-end
 
-
-funcs.plrJoin = game.Players.PlayerAdded:Connect(function(joinPlr)
-        SendNotification("Hypix", tostring(joinPlr).. "has just joined the game", 5)
-end)
-
-
-
-funcs.plrLeave = game.Players.PlayerRemoving:Connect(function(leavePlr)
-        SendNotification("Hypix", tostring(leavePlr).. "has just left the game", 5)
-    end)
---end
