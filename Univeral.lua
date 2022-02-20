@@ -201,17 +201,17 @@ mainThings:Create(
     "Turn on/off player joined and player left",
     function(state)
         if state == true then
-            SendNotification("Hypix", "Player Join/Left = On", 3)
+            SendNotification("Hypix-Scripting", "Player Join/Left = On", 3)
             funcs.plrJoin = game.Players.PlayerAdded:Connect(function(joinPlr)
-                    SendNotification("Hypix", tostring(joinPlr).. "has just joined the game", 5)
+                    SendNotification("Hypix-Scripting-Scripting", tostring(joinPlr).. "has just joined the game", 5)
             end)
             
             funcs.plrLeave = game.Players.PlayerRemoving:Connect(function(leavePlr)
-                    SendNotification("Hypix", tostring(leavePlr).. "has just left the game", 5)
+                    SendNotification("Hypix-Scripting", tostring(leavePlr).. "has just left the game", 5)
             end)
         end
         if state == false then
-            SendNotification("Hypix", "Player Join/Left = Off", 3)
+            SendNotification("Hypix-Scripting", "Player Join/Left = Off", 3)
             funcs.plrJoin:Disconnect()
             funcs.plrLeave:Disconnect()
         end
@@ -233,7 +233,7 @@ mainThings:Create(
     "No clip",
     function(state)
         if state == true then
-            SendNotification("Hypix", "No-Clip = On", 3)
+            SendNotification("Hypix-Scripting", "No-Clip = On", 3)
             var.clipping = game:GetService("RunService").Stepped:Connect(function()
                 if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torso") and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") then
                     game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torso").CanCollide = not state
@@ -241,7 +241,7 @@ mainThings:Create(
                 end 
             end)
         else
-            SendNotification("Hypix", "No-Clip = Off", 3)
+            SendNotification("Hypix-Scripting", "No-Clip = Off", 3)
             var.clipping:Disconnect()
         end
     end,
@@ -300,7 +300,7 @@ mainThings:Create(
     "Chat Spy",
     function(state)
         if state == true then
-            SendNotification("Hypix", "Chat Spy = On", 3)
+            SendNotification("Hypix-Scripting", "Chat Spy = On", 3)
             enabled = true
             spyOnMyself = false
             public = false
@@ -361,7 +361,7 @@ mainThings:Create(
             chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position+UDim2.new(UDim.new(),chatFrame.ChatChannelParentFrame.Size.Y)
         end
         if state == false then
-            SendNotification("Hypix", "Chat Spy = Off", 3)
+            SendNotification("Hypix-Scripting", "Chat Spy = Off", 3)
             --This script reveals ALL hidden messages in the default chat
             --chat "/spy" to toggle!
             enabled = false
