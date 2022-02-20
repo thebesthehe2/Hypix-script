@@ -832,7 +832,7 @@ end)
         default = false,
     }
 )
-section3:Create(
+--[[section3:Create(
     "Toggle",
     "Esp (Bit broken)",
     function(state)
@@ -1124,7 +1124,7 @@ section3:Create(
     {
         default = false,
     }
-)
+)]]--
 
 --send notification things
 
